@@ -1,0 +1,2 @@
+- https://stackoverflow.com/questions/49162311/react-difference-between-route-exact-path-and-route-path
+- https://stackoverflow.com/questions/61566666/mongoerror-user-is-not-allowed-to-do-action-find-on-test-users
