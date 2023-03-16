@@ -7,7 +7,7 @@ const authCtrl = {
     try {
       const { fullname, username, email, password, gender } = req.body;
       //   console.log(req.body);
-      let newUserName = username.toLowerCase().replace(/ /g, "");
+      let newUserName = username.toLowerCase().replace(/ /g, '');
       //   console.log(newUserName);
 
       // checking if username is present or not in database
@@ -63,8 +63,8 @@ const authCtrl = {
       res.json({
         msg: "Register Success!!",
         access_token,
-        user: { ...newUser._doc, password: "" },
-      });
+        user: { ...newUser._doc, password: '' },
+      })
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -152,13 +152,13 @@ const authCtrl = {
 
           res.json({
             access_token,
-            user,
+            user
           });
         }
       );
 
       // if token is not verified then we are not adding user and access_token in response
-      res.json({ rf_token });
+      // res.json({ rf_token });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -168,12 +168,12 @@ const authCtrl = {
 const createAccessToken = (payload) => {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "1d",
-  });
-};
+  })
+}
 
 const createRefreshToken = (payload) => {
   return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "30d",
-  });
-};
-module.exports = authCtrl;
+  })
+}
+module.exports = authCtrl
