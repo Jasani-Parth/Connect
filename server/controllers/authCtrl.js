@@ -72,7 +72,6 @@ const authCtrl = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-      //   console.log(req.body);
 
       // checking if email exists or not and if exists then get data
       const user = await Users.findOne({ email }).populate(
