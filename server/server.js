@@ -13,9 +13,7 @@ app.use(cookieParser());
 
 // routes
 app.use("/api", require("./routes/authRouter"));
-app.get("/", (req, res) => {
-  res.json({ msg: "Hello" });
-});
+app.use("/api", require("./routes/userRouter"));
 
 // connect-to-database
 const URI = process.env.MONGODB_URL;

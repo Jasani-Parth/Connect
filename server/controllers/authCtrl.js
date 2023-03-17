@@ -7,7 +7,7 @@ const authCtrl = {
     try {
       const { fullname, username, email, password, gender } = req.body;
       //   console.log(req.body);
-      let newUserName = username.toLowerCase().replace(/ /g, '');
+      let newUserName = username.toLowerCase().replace(/ /g, "");
       //   console.log(newUserName);
 
       // checking if username is present or not in database
@@ -63,8 +63,8 @@ const authCtrl = {
       res.json({
         msg: "Register Success!!",
         access_token,
-        user: { ...newUser._doc, password: '' },
-      })
+        user: { ...newUser._doc, password: "" },
+      });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -72,7 +72,7 @@ const authCtrl = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-
+      // console.log(req.body);
       // checking if email exists or not and if exists then get data
       const user = await Users.findOne({ email }).populate(
         "followers following",
@@ -152,7 +152,7 @@ const authCtrl = {
 
           res.json({
             access_token,
-            user
+            user,
           });
         }
       );
@@ -168,12 +168,12 @@ const authCtrl = {
 const createAccessToken = (payload) => {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "1d",
-  })
-}
+  });
+};
 
 const createRefreshToken = (payload) => {
   return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "30d",
-  })
-}
-module.exports = authCtrl
+  });
+};
+module.exports = authCtrl;

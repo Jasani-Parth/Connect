@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import PageRender from "./PageRender";
+import PageRender from "./customRouter/PageRender";
 import Home from "./pages/home";
 import Login from "./pages/login";
+import Register from "./pages/register";
 
 import Alert from "./components/alert/Alert";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 
 import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/authAction";
@@ -18,6 +19,8 @@ function App() {
     dispatch(refreshToken());
   }, [dispatch]);
 
+  const firstLogin = localStorage.getItem("firstLogin");
+  // console.log(firstLogin);
   return (
     <Router>
       <Alert />
@@ -27,8 +30,17 @@ function App() {
           {auth.token && <Header />}
           <Routes>
             <Route exact path="/" Component={auth.token ? Home : Login} />
-            <Route exact path="/:page" Component={PageRender} />
-            <Route exact path="/:page/:id" Component={PageRender} />
+            <Route exact path="/register" Component={Register} />
+            <Route
+              exact
+              path="/:page"
+              Component={firstLogin ? PageRender : Login}
+            />
+            <Route
+              exact
+              path="/:page/:id"
+              Component={firstLogin ? PageRender : Login}
+            />
           </Routes>
         </div>
       </div>

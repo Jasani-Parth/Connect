@@ -11,8 +11,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { auth, alert } = useSelector((state) => state);
-  console.log(auth, alert);
+  const { auth } = useSelector((state) => state);
 
   useEffect(() => {
     if (auth.token) navigate("/");
