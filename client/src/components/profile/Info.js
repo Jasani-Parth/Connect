@@ -15,8 +15,8 @@ const Info = () => {
 
   const [userData, setUserData] = useState([]);
   const [onEdit, setOnEdit] = useState(false);
-  const[showFollowers, setShowFollowers] = useState(false);
-  const[showFollowing, setShowFollowing] = useState(false);
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
 
   useEffect(() => {
     if (id === auth.user._id) {
@@ -36,45 +36,61 @@ const Info = () => {
           <div className="info_content">
             <div className="info_content_title">
               <h2>{user.username}</h2>
-              {
-                user._id === auth.user._id ?
-                    <button
-                        className="btn btn-outline-info"
-                        onClick={() => setOnEdit(true)}
-                    >
-                        Edit Profile
-                    </button>
-
-                    :
-
-                    <FollowBtn user={user} />
-
-              }
+              {user._id === auth.user._id ? (
+                <button
+                  className="btn btn-outline-info"
+                  onClick={() => setOnEdit(true)}
+                >
+                  Edit Profile
+                </button>
+              ) : (
+                <FollowBtn user={user} />
+              )}
             </div>
 
             <div className="follow_btn">
-              <span className="mr-4" onClick={() => setShowFollowers(true)}>{user.followers.length} Followers</span>
-              <span className="ml-4" onClick={() => setShowFollowing(true)}>{user.following.length} Following</span>
+              <span className="mr-4" onClick={() => setShowFollowers(true)}>
+                {user.followers.length} Followers
+              </span>
+              <span className="ml-4" onClick={() => setShowFollowing(true)}>
+                {user.following.length} Following
+              </span>
             </div>
 
             <h6>
-              {user.fullname} <span className="text-danger"> {user.mobile} </span>
+              {user.fullname}{" "}
+              <span className="text-danger"> {user.mobile} </span>
             </h6>
             <p className="m-0">{user.address}</p>
             <h6 className="m-0">{user.email}</h6>
-            <a href={user.website} target="_blank" rel="noopener noreferrer">
+            <i
+              onClick={() => {
+                window.open(
+                  user.website.startsWith("https://")
+                    ? user.website
+                    : "https://" + user.website,
+                  "_blank",
+                  "noreferrer"
+                );
+              }}
+            >
               {user.website}
-            </a>
-            {/* <i onClick={()=>{window.open("'"+user.website+"'", '_blank');}}>{user.website}</i>
-            <p>{user.story}</p> */} 
+            </i>
+            <p>{user.story}</p>
           </div>
           {onEdit && <EditProfile setOnEdit={setOnEdit} />}
-          { showFollowers && <Followers 
-          users={user.followers} setShowFollowers={setShowFollowers}
-           />}
-          { showFollowing && <Following 
-          users={user.following} setShowFollowing={setShowFollowing}
-           />}
+          {showFollowers && (
+            <Followers
+              users={user.followers}
+              setShowFollowers={setShowFollowers}
+            />
+          )}
+          {showFollowing && (
+            <Following
+              users={user.following}
+              setShowFollowing={setShowFollowing}
+            />
+          )}
         </div>
       ))}
     </div>

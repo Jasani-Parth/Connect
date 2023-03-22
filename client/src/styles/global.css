@@ -52,3 +52,9 @@ img {
 
 /* -----------------PROFILE-------------- */
 @import url("./profile.css");
+
+/* -----------------HOME---------------- */
+@import url("./home.css");
+
+/* ---------------STATUS MODEL----------------- */
+@import url("./status_model.css");
