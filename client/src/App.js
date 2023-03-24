@@ -11,14 +11,19 @@ import StatusModel from "./components/StatusModel";
 
 import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/authAction";
+import { getPosts } from './redux/actions/postAction'
 
 function App() {
   const { auth, status } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(refreshToken());
+    dispatch(refreshToken())
   }, [dispatch]);
+
+  useEffect(() => {
+    if(auth.token) dispatch(getPosts(auth.token))
+  }, [dispatch, auth.token]);
 
   const firstLogin = localStorage.getItem("firstLogin");
   // console.log(firstLogin);
