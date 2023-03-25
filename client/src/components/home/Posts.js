@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import CardHeader from './post_card/CardHeader'
 import CardBody from './post_card/CardBody'
-import CardFooter from './post_card/Card_Footer'
+import CardFooter from './post_card/CardFooter'
 
 
 const Posts = () => {

@@ -5,6 +5,8 @@ const userCtrl = require("../controllers/userCtrl");
 route.get("/search", auth, userCtrl.searchUser)
 route.get("/user/:id", auth, userCtrl.getUser)
 route.patch("/user", auth, userCtrl.updateUser)
+
+
 route.patch("/user/:id/follow", auth, userCtrl.follow)
 route.patch("/user/:id/unfollow", auth, userCtrl.unfollow)
 module.exports = route;

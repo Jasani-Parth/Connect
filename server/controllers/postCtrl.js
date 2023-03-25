@@ -19,7 +19,7 @@ const postCtrl = {
 
       res.json({
         msg: "Create Post",
-        newPost,
+        newPost
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -27,12 +27,34 @@ const postCtrl = {
   },
   getPosts: async (req, res) => {
     try {
-      const posts = await Posts.find({user: [...req.user.following, req.user._id]})
-                              .populate("user likes","avatar username fullname")
+      const posts = await Posts.find({
+        user: [...req.user.following, req.user._id],
+      })
+      .sort('-createdAt')
+      .populate("user likes", "avatar username fullname");
       res.json({
-        msg: 'Success',
+        msg: "Success",
         result: posts.length,
-        posts
+        posts,
+      });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  updatePost: async (req, res) => {
+    try {
+      const {content, images} = req.body
+
+      const post = await Posts.findOneAndUpdate({_id: req.params.id},{
+        content, images
+      }).populate("user likes", "avatar username fullname");
+
+      res.json({
+        msg: "Updated Post!",
+        newPost: {
+          ...post._doc,
+          content, images
+        }
       })
     } catch (err) {
       return res.status(500).json({ msg: err.message });
