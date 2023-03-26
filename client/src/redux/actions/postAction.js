@@ -25,9 +25,9 @@ export const createPost =
         auth.token
       );
 
-      dispatch({ 
-        type: POST_TYPES.CREATE_POST, 
-        payload: {...res.data.newPost, user: auth.user} 
+      dispatch({
+        type: POST_TYPES.CREATE_POST,
+        payload: { ...res.data.newPost, user: auth.user },
       });
 
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
@@ -78,8 +78,6 @@ export const updatePost =
       return; //ie do nothing -> donot post agin with same content
     }
 
-
-    
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
       if (imgNewUrl.length > 0) media = await imageUpload(imgNewUrl);
@@ -94,6 +92,41 @@ export const updatePost =
       dispatch({ type: POST_TYPES.UPDATE_POST, payload: res.data.newPost });
 
       dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
+      });
+    }
+  };
+
+export const likePost =
+  ({ post, auth }) =>
+  async (dispatch) => {
+    const newPost = { ...post, likes: [...post.likes, auth.user] };
+    dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
+
+    try {
+      await patchDataAPI(`post/${post._id}/like`, null, auth.token);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
+      });
+    }
+  };
+
+export const unLikePost =
+  ({ post, auth }) =>
+  async (dispatch) => {
+    const newPost = {
+      ...post,
+      likes: post.likes.filter((like) => like._id !== auth.user._id),
+    };
+    dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
+
+    try {
+      await patchDataAPI(`post/${post._id}/unlike`, null, auth.token);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
