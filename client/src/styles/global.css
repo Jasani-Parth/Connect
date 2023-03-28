@@ -59,6 +59,9 @@ img {
 /* ---------------STATUS MODEL----------------- */
 @import url("./status_model.css");
 
+/* --------------Comments----------------- */
+@import url("./comments.css");
+
 
 .mode{
   width: 100%;

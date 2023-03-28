@@ -91,7 +91,7 @@ export const updateProfileUser =
   export const follow =
    ({users, user, auth}) =>
     async (dispatch) => {
-    let newUser;
+    let newUser;  
     if(users.every(item => item._id !== user._id)){
       newUser = {...user, followers: [...user.followers, auth.user]}
     }else{
@@ -120,7 +120,7 @@ export const updateProfileUser =
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
-        payload: { error: err.response.data.msg },
+        payload: { error: err.response.data.msg }
       });
     }
 
@@ -160,7 +160,7 @@ export const updateProfileUser =
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
-        payload: { error: err.response.data.msg },
+        payload: { error: err.response.data.msg }
       });
     }
 

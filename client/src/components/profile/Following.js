@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 const Following = ({users, setShowFollowing}) => {
     const { auth } = useSelector(state => state)
     return (
-        <div className="following">
+        <div className="follow">
             <div className="follow_box">
                 <h5 className='text-center'>Following</h5>
                 <hr/>
