@@ -69,14 +69,14 @@ const userCtrl = {
   },
   unfollow: async (req, res) => {
     try {
-      
+      // console.log("anubhab",req.params, req.user);
       await Users.findOneAndUpdate({_id: req.params.id}, {
             $pull: {followers: req.user._id}
-      },{new: true})
+      },{new: true}) 
 
       await Users.findOneAndUpdate({_id: req.user._id}, {
-            $pull: {following: req.param.id}
-      },{new: true})
+            $pull: {following: req.params.id}
+      },{new: true}) 
 
       res.json({msg: 'UnFollowed User.'})
 
