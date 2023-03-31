@@ -42,6 +42,7 @@ const Info = () => {
       {userData.map((user) => (
         <div className="info_container" key={user._id}>
           <Avatar src={user.avatar} size="supper-avatar" />
+          <Avatar src={user.coverphoto} size="supper-avatar" />
           <div className="info_content">
             <div className="info_content_title">
               <h2>{user.username}</h2>
@@ -72,8 +73,9 @@ const Info = () => {
             </h6>
             <p className="m-0">{user.address}</p>
             <h6 className="m-0">{user.email}</h6>
-            
-            <i className="follow_btn"
+
+            <i
+              className="follow_btn"
               onClick={() => {
                 window.open(
                   user.website.startsWith("https://")

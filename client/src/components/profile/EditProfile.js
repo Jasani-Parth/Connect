@@ -16,6 +16,7 @@ const EditProfile = ({ setOnEdit }) => {
   const [userData, setUserData] = useState(initState);
   const { fullname, mobile, address, website, story, gender } = userData;
   const [avatar, setAvatar] = useState("");
+  const [coverphoto, setCoverPhoto] = useState("");
   const { auth, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -36,6 +37,20 @@ const EditProfile = ({ setOnEdit }) => {
     setAvatar(file);
   };
 
+  const changeCoverPhoto = (e) => {
+    const file = e.target.files[0];
+    const err = checkImage(file);
+
+    if (err) {
+      return dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err },
+      });
+    }
+
+    setCoverPhoto(file);
+  };
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -43,7 +58,7 @@ const EditProfile = ({ setOnEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateProfileUser({ userData, avatar, auth }));
+    dispatch(updateProfileUser({ userData, avatar, coverphoto, auth }));
   };
 
   return (
@@ -74,6 +89,30 @@ const EditProfile = ({ setOnEdit }) => {
             />
           </span>
         </div>
+
+        <div className="info_avatar">
+          <img
+            src={
+              coverphoto
+                ? URL.createObjectURL(coverphoto)
+                : auth.user.coverphoto
+            }
+            alt="coverphoto"
+            style={{ filter: theme ? "invert(1)" : "invert(0)" }}
+          />
+          <span>
+            <i className="fas fa-camera" />
+            <p>Change</p>
+            <input
+              type="file"
+              name="file"
+              id="file_up"
+              accept="image/*"
+              onChange={changeCoverPhoto}
+            />
+          </span>
+        </div>
+
         <div className="form-group">
           <label htmlFor="fullname">Full Name</label>
           <div className="position-relative">

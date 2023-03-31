@@ -6,7 +6,7 @@ export const PROFILE_TYPES = {
   LOADING: "LOADING",
   GET_USER: "GET_USER",
   FOLLOW: "FOLLOW",
-  UNFOLLOW: "UNFOLLOW"
+  UNFOLLOW: "UNFOLLOW",
 };
 
 export const getProfileUsers =
@@ -31,7 +31,7 @@ export const getProfileUsers =
   };
 
 export const updateProfileUser =
-  ({ userData, avatar, auth }) =>
+  ({ userData, avatar, coverphoto, auth }) =>
   async (dispatch) => {
     if (!userData.fullname)
       return dispatch({
@@ -53,15 +53,21 @@ export const updateProfileUser =
 
     try {
       let media;
+      let covermedia;
+      // console.log(coverphoto, avatar);
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
       if (avatar) media = await imageUpload([avatar]);
+      if (coverphoto) covermedia = await imageUpload([coverphoto]);
+
+      // console.log(media, covermedia);
 
       const res = await patchDataAPI(
         "user",
         {
           ...userData,
           avatar: avatar ? media[0].url : auth.user.avatar,
+          coverphoto: coverphoto ? covermedia[0].url : auth.user.coverphoto,
         },
         auth.token
       );
@@ -74,6 +80,7 @@ export const updateProfileUser =
             ...auth.user,
             ...userData,
             avatar: avatar ? media[0].url : auth.user.avatar,
+            coverphoto: coverphoto ? covermedia[0].url : auth.user.coverphoto,
           },
         },
       });
@@ -87,81 +94,84 @@ export const updateProfileUser =
     }
   };
 
-
-  export const follow =
-   ({users, user, auth}) =>
-    async (dispatch) => {
-    let newUser;  
-    if(users.every(item => item._id !== user._id)){
-      newUser = {...user, followers: [...user.followers, auth.user]}
-    }else{
-      users.forEach(item => {
-        if(item._id === user._id){
-          newUser = {...item, followers: [...item.followers, auth.user]}
+export const follow =
+  ({ users, user, auth }) =>
+  async (dispatch) => {
+    let newUser;
+    if (users.every((item) => item._id !== user._id)) {
+      newUser = { ...user, followers: [...user.followers, auth.user] };
+    } else {
+      users.forEach((item) => {
+        if (item._id === user._id) {
+          newUser = { ...item, followers: [...item.followers, auth.user] };
         }
-      })
+      });
     }
-    
+
     dispatch({
       type: PROFILE_TYPES.FOLLOW,
-      payload: newUser
-    })
+      payload: newUser,
+    });
 
     dispatch({
       type: GLOBALTYPES.AUTH,
       payload: {
         ...auth,
-        user: {...auth.user, following: [...auth.user.following, newUser]}
-      }
-    })
+        user: { ...auth.user, following: [...auth.user.following, newUser] },
+      },
+    });
 
     try {
-      await patchDataAPI(`user/${user._id}/follow`, null, auth.token)
+      await patchDataAPI(`user/${user._id}/follow`, null, auth.token);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
-        payload: { error: err.response.data.msg }
+        payload: { error: err.response.data.msg },
       });
     }
-
   };
 
-
-  export const unfollow =
-  ({users, user, auth}) =>
-    async (dispatch) => {
+export const unfollow =
+  ({ users, user, auth }) =>
+  async (dispatch) => {
     let newUser;
-    if(users.every(item => item._id !== user._id)){
-      newUser = {...user, followers: DeleteData(user.followers, auth.user._id)}
-    }else{
-      users.forEach(item => {
-        if(item._id === user._id){
-          newUser = {...item,followers: DeleteData(item.followers, auth.user._id)}
+    if (users.every((item) => item._id !== user._id)) {
+      newUser = {
+        ...user,
+        followers: DeleteData(user.followers, auth.user._id),
+      };
+    } else {
+      users.forEach((item) => {
+        if (item._id === user._id) {
+          newUser = {
+            ...item,
+            followers: DeleteData(item.followers, auth.user._id),
+          };
         }
-      })
+      });
     }
     dispatch({
       type: PROFILE_TYPES.UNFOLLOW,
-      payload: newUser
-    })
+      payload: newUser,
+    });
 
     dispatch({
       type: GLOBALTYPES.AUTH,
       payload: {
         ...auth,
         user: {
-            ...auth.user,
-            following: DeleteData(auth.user.following, newUser._id)}
-      }
-    })
+          ...auth.user,
+          following: DeleteData(auth.user.following, newUser._id),
+        },
+      },
+    });
 
     try {
-      await patchDataAPI(`user/${user._id}/unfollow`, null, auth.token)
+      await patchDataAPI(`user/${user._id}/unfollow`, null, auth.token);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
-        payload: { error: err.response.data.msg }
+        payload: { error: err.response.data.msg },
       });
     }
-
- };
+  };

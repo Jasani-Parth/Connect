@@ -15,8 +15,9 @@ const userCtrl = {
   },
   getUser: async (req, res) => {
     try {
-      const user = await Users.findById(req.params.id).select("-password")
-      .populate("followers following", "-password");
+      const user = await Users.findById(req.params.id)
+        .select("-password")
+        .populate("followers following", "-password");
       if (!user) return res.status(400).json({ msg: "User does not exist" });
       res.json({ user });
     } catch (err) {
@@ -25,8 +26,16 @@ const userCtrl = {
   },
   updateUser: async (req, res) => {
     try {
-      const { avatar, fullname, mobile, address, story, website, gender } =
-        req.body;
+      const {
+        avatar,
+        coverphoto,
+        fullname,
+        mobile,
+        address,
+        story,
+        website,
+        gender,
+      } = req.body;
       if (!fullname)
         return res.status(400).json({ msg: "Please add your full name." });
 
@@ -34,6 +43,7 @@ const userCtrl = {
         { _id: req.user._id },
         {
           avatar,
+          coverphoto,
           fullname,
           mobile,
           address,
@@ -50,19 +60,30 @@ const userCtrl = {
   },
   follow: async (req, res) => {
     try {
-      const user = await Users.find({_id: req.params.id, followers: req.user._id})
-      if(user.length > 0) return res.status(500).json({msg: "You followed this user."})
+      const user = await Users.find({
+        _id: req.params.id,
+        followers: req.user._id,
+      });
+      if (user.length > 0)
+        return res.status(500).json({ msg: "You followed this user." });
 
-      await Users.findOneAndUpdate({_id: req.params.id}, {
-            $push: {followers: req.user._id}
-      },{new: true})
+      await Users.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $push: { followers: req.user._id },
+        },
+        { new: true }
+      );
 
-      await Users.findOneAndUpdate({_id: req.user._id}, {
-            $push: {following: req.params.id}
-      },{new: true})
+      await Users.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: { following: req.params.id },
+        },
+        { new: true }
+      );
 
-      res.json({msg: 'Followed User.'})
-
+      res.json({ msg: "Followed User." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -70,16 +91,23 @@ const userCtrl = {
   unfollow: async (req, res) => {
     try {
       // console.log("anubhab",req.params, req.user);
-      await Users.findOneAndUpdate({_id: req.params.id}, {
-            $pull: {followers: req.user._id}
-      },{new: true}) 
+      await Users.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $pull: { followers: req.user._id },
+        },
+        { new: true }
+      );
 
-      await Users.findOneAndUpdate({_id: req.user._id}, {
-            $pull: {following: req.params.id}
-      },{new: true}) 
+      await Users.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $pull: { following: req.params.id },
+        },
+        { new: true }
+      );
 
-      res.json({msg: 'UnFollowed User.'})
-
+      res.json({ msg: "UnFollowed User." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

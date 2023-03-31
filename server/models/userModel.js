@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "https://static.thenounproject.com/png/5034901-200.png",
     },
+    coverphoto: {
+      type: String,
+      default: "https://static.thenounproject.com/png/5034901-200.png",
+    },
     role: {
       type: String,
       default: "user",
