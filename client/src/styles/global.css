@@ -29,7 +29,7 @@ code {
 }
 
 .main {
-  max-width: 1000px;
+  /* max-width: 1000px; */
   width: 100%;
   margin: auto;
 }
@@ -61,6 +61,15 @@ img {
 
 /* --------------Comments----------------- */
 @import url("./comments.css");
+
+
+
+/* --------------reg&login----------------- */
+@import url("./signUp.css");
+@import url("./signIn.css");
+
+
+
 
 
 .mode{

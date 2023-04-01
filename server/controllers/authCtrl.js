@@ -80,7 +80,7 @@ const authCtrl = {
       );
 
       if (!user) {
-        res.status(400).json({ msg: "User Not Exists." });
+        return res.status(400).json({ msg: "User Not Exists." });
       }
 
       // password varification

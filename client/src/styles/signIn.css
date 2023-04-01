@@ -1,0 +1,112 @@
+.signIn_page{
+    background: url("../images/Artboard_SIGNIN.png");
+    /* background-color: gray; */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.signIn_zone{
+    /* background-color: red; */
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signIn_left_part{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-left: 15%;
+    margin-top: 100px;
+    width: 40%;
+    height: 500px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    color: white;
+    
+}
+.signIn_form{
+    width:75%;
+    /* background-color: red; */
+}
+.signIn_form h3{
+    color: #ffffffd8;
+    margin-top: 10px;
+    font-weight: bolder;
+}
+
+.signIn_form label{
+    color:rgba(255, 255, 255, 0.651);
+    font-weight: bolder;
+    font-size: large;
+    
+}
+.signIn_form small{
+    color:rgba(0, 0, 0, 0.438);
+    font-weight: bold;
+}
+
+
+
+.signUp_right_part{
+    /* background-color: rgba(255, 255, 255, 0.39); */
+    /* backdrop-filter: blur(10px); */
+    /* box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3); */
+    border-radius: 30px;
+    width: 24%;
+    margin-right: 20px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #006699;
+    text-align: center;
+    margin-top: 100px;
+}
+.signUp_right_part h1{
+    font-size: 60px;
+}
+.signUp_right_part p{
+    margin-top: 20px;
+    font-size: 17px;
+    text-align: center;
+    /* font-weight: bolder; */
+    opacity: 0.8;
+}
+
+.entry_btn3{
+    padding:15px 100px;
+    border: none;
+    border-radius: 30px;
+    box-shadow: -10px 20px 30px rgba(0, 0, 0, 0.2);
+    font-weight: bolder;
+    font-size: 20px;
+    color: #006699;
+    transition: 0.3s all;
+    background-color: #ffffff7a;
+    
+}
+
+.entry_btn3:hover{
+    background-color: #ffffffdc;
+    color: #006699;
+}
+.entry_btn3:focus{
+    outline: none;
+}
+.entry_btn3:disabled{
+    /* display: none; */
+    /* pointer-events: none; */
+    filter: blur(5px);
+}
