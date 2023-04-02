@@ -43,13 +43,15 @@ const Search = () => {
           value={search}
           id="search"
           title="Enter to Search"
+          placeholder="Enter to search"
           onChange={(e) =>
             setSearch(e.target.value.toLowerCase().replace(/ /g, ""))
           }
         />
-        <div className="search_icon" style={{ opacity: search ? 0 : 0.3 }}>
-          <span className="material-icons">search</span>
-          <span>Enter to Search</span>
+        <div className="search_icon" style={{opacity: search?0.8:0 }}>
+          <button type="submit">
+            <span className="material-icons">search</span>
+          </button>
         </div>
         <div
           className="close_search"
@@ -59,20 +61,25 @@ const Search = () => {
           &times;
         </div>
 
-        <button type="submit" style={{ display: "none" }}>
-          Search
-        </button>
+
+
         {load && <img className="loading" src={LoadIcon} alt="loading" />}
 
-        <div className="users">
+        <div className="users" style={{ opacity: users.length === 0 || search.length === 0 ? 0 : 1 }}>
           {search &&
-            users.map((user) => (
-              <UserCard
-                key={user._id}
-                user={user}
-                border="border"
-                handleClose={handleClose}
-              />
+            users.map((user, index) => (
+              <>
+                <UserCard
+                  key={user._id}
+                  user={user}
+                  border="none"
+                  handleClose={handleClose}
+                />
+                {index === users.length -1 ? <></> : <hr/>}
+                
+              
+              
+              </>
             ))}
         </div>
       </form>

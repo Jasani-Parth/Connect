@@ -7,7 +7,7 @@ import PostCard from '../PostCard'
 
 const Posts = () => {
     const { homePosts } = useSelector(state => state)
-
+    
     return (
         <div className="posts">
             {

@@ -6,31 +6,16 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 const Menu = () => {
-  const navLinks = [
-    { label: "Home", icon: "home", path: "/" },
-    { label: "Message", icon: "near_me", path: "/message" },
-    { label: "Discover", icon: "explore", path: "/discover" },
-    { label: "Notify", icon: "favorite", path: "/notify" },
-  ];
+
 
   const { auth, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
 
-  const isActive = (pn) => {
-    if (pn === pathname) return "active";
-  };
 
   return (
     <div className="menu">
       <ul className="navbar-nav flex-row">
-        {navLinks.map((link, index) => (
-          <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
-            <Link className="nav-link" to={link.path}>
-              <span className="material-icons">{link.icon}</span>
-            </Link>
-          </li>
-        ))}
+        
 
         <li className="nav-item dropdown">
           <span
@@ -41,7 +26,7 @@ const Menu = () => {
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <Avatar src={auth.user.avatar} size="medium-avatar" />
+            <Avatar src={auth.user.avatar} size="big-avatar" />
           </span>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
             <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>
@@ -59,6 +44,9 @@ const Menu = () => {
             </label>
 
             <div className="dropdown-divider"></div>
+
+
+
             <Link
               className="dropdown-item"
               to="/"

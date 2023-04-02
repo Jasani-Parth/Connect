@@ -27,7 +27,7 @@ function App() {
 
   const firstLogin = localStorage.getItem("firstLogin");
   // console.log(firstLogin);
-  console.log("user", auth.user);
+  // console.log("user", auth.user);
   return (
     <Router>
       <Alert />
