@@ -7,9 +7,9 @@ const CommentMenu = ({ post, comment, setOnEdit }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    // if (post.user._id === auth.user._id || comment.user._id === auth.user._id) {
-    //   dispatch(deleteComment({ post, auth, comment, socket }));
-    // }
+    if (post.user._id === auth.user._id || comment.user._id === auth.user._id) {
+      dispatch(deleteComment({ post, auth, comment }));
+    }
   };
 
   const MenuItem = () => {

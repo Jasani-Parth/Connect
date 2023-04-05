@@ -1,41 +1,53 @@
-import React, { useState} from "react";
-import { useSelector, useDispatch } from "react-redux";   
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { createComment } from "../../redux/actions/commentAction";
 
+const InputComment = ({ children, post, onReply, setOnReply }) => {
+  const [content, setContent] = useState("");
 
-const InputComment = ({children, post}) => {
-    const [content, setContent] = useState('')
+  const { auth } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-    const { auth } = useSelector(state => state)
-    const dispatch = useDispatch()
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if(!content.trim()) return;
-
-        setContent("")
-
-        const newComment = {
-            content ,
-            likes: [],
-            user: auth.user,
-            createdAt: new Date().toISOString()
-        }
-
-        // console.log(newComment);
-        dispatch(createComment({post, newComment, auth}))
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!content.trim()) {
+      if (setOnReply) return setOnReply(false);
+      return;
     }
-    return (
-        <form className="card-footer comment_input" onSubmit={handleSubmit}>
-            {children}
-            <input type="text" name="" placeholder="Add your comments"
-            value={content} onChange={e=> setContent(e.target.value)} />
 
-            <button type="submit" className="postBtn">
-                Post
-            </button>
-        </form>
-    )
-}
+    setContent("");
 
-export default InputComment
+    const newComment = {
+      content,
+      likes: [],
+      user: auth.user,
+      createdAt: new Date().toISOString(),
+      reply: onReply && onReply.commentId,
+      tag: onReply && onReply.user,
+    };
+
+    // console.log(newComment);
+    // console.log(newComment);
+    dispatch(createComment({ post, newComment, auth }));
+
+    if (setOnReply) return setOnReply(false);
+  };
+  return (
+    <form className="card-footer comment_input" onSubmit={handleSubmit}>
+      {children}
+      <input
+        type="text"
+        name=""
+        placeholder="Add your comments"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+
+      <button type="submit" className="postBtn">
+        Post
+      </button>
+    </form>
+  );
+};
+
+export default InputComment;

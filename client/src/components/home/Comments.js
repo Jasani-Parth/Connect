@@ -22,7 +22,12 @@ const Comments = ({ post }) => {
   return (
     <div className="comments">
       {showComments.map((comment, index) => (
-        <CommentDisplay key={comment._id} comment={comment} post={post} />
+        <CommentDisplay
+          key={index}
+          comment={comment}
+          post={post}
+          replyCm={replyComments.filter((item) => item.reply === comment._id)}
+        />
       ))}
       {comments.length - next > 0 ? (
         <div

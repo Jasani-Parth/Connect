@@ -15,7 +15,11 @@ export const createComment =
     dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
 
     try {
-      const data = { ...newComment, postId: post._id };
+      const data = {
+        ...newComment,
+        postId: post._id,
+        postUserId: post.user._id,
+      };
       const res = await postDataAPI("comment", data, auth.token);
 
       // console.log(res);
@@ -96,44 +100,31 @@ export const unLikeComment =
     }
   };
 
-//----------------------------for later
-// export const deleteComment =
-//   ({ post, comment, auth, socket }) =>
-//   async (dispatch) => {
-//     const deleteArr = [
-//       ...post.comments.filter((cm) => cm.reply === comment._id),
-//       comment,
-//     ];
+export const deleteComment =
+  ({ post, comment, auth }) =>
+  async (dispatch) => {
+    // console.log(post, comment, auth);
+    const deleteArr = [
+      ...post.comments.filter((cm) => cm.reply === comment._id),
+      comment,
+    ];
+    // console.log(deleteArr);
 
-//     const newPost = {
-//       ...post,
-//       comments: post.comments.filter(
-//         (cm) => !deleteArr.find((da) => cm._id === da._id)
-//       ),
-//     };
+    const newPost = {
+      ...post,
+      comments: post.comments.filter(
+        (cm) => !deleteArr.find((da) => cm._id === da._id)
+      ),
+    };
 
-//     dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
+    // console.log(newPost, post);
+    dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
 
-//     socket.emit("deleteComment", newPost);
-//     try {
-//       deleteArr.forEach((item) => {
-//         deleteDataAPI(`comment/${item._id}`, auth.token);
-
-//         const msg = {
-//           id: item._id,
-//           text: comment.reply
-//             ? "mentioned you in a comment."
-//             : "has commented on your post.",
-//           recipients: comment.reply ? [comment.tag._id] : [post.user._id],
-//           url: `/post/${post._id}`,
-//         };
-
-//         // dispatch(removeNotify({msg, auth, socket}))
-//       });
-//     } catch (err) {
-//       dispatch({
-//         type: GLOBALTYPES.ALERT,
-//         payload: { error: err.response.data.msg },
-//       });
-//     }
-//   };
+    try {
+      deleteArr.forEach((item) => {
+        deleteDataAPI(`comment/${item._id}`, auth.token);
+      });
+    } catch (err) {
+      dispatch({ type: GLOBALTYPES.ALERT, payload: err.response.data.msg });
+    }
+  };
