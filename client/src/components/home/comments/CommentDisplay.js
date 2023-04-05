@@ -27,7 +27,7 @@ const CommentDisplay = ({ comment, post, replyCm }) => {
 
           {replyCm.length - next > 0 ? (
             <div
-              style={{ cursor: "pointer", color: "crimson" }}
+              style={{ cursor: "pointer", color: "#0096D1" }}
               onClick={() => setNext(next + 10)}
             >
               See more comments...
@@ -35,7 +35,7 @@ const CommentDisplay = ({ comment, post, replyCm }) => {
           ) : (
             replyCm.length > 1 && (
               <div
-                style={{ cursor: "pointer", color: "crimson" }}
+                style={{ cursor: "pointer", color: "#0096D1" }}
                 onClick={() => setNext(1)}
               >
                 Hide comments...

@@ -31,8 +31,8 @@ const Comments = ({ post }) => {
       ))}
       {comments.length - next > 0 ? (
         <div
-          className="p-2 border-top"
-          style={{ cursor: "pointer", color: "crimson" }}
+          className="p-2 border-top show_prompt"
+          style={{ cursor: "pointer", color: "#0096D1" }}
           onClick={() => setNext(next + 10)}
         >
           See more comments...
@@ -40,8 +40,8 @@ const Comments = ({ post }) => {
       ) : (
         comments.length > 2 && (
           <div
-            className="p-2 border-top"
-            style={{ cursor: "pointer", color: "crimson" }}
+            className="p-2 border-top show_prompt"
+            style={{ cursor: "pointer", color: "#0096D1" }}
             onClick={() => setNext(2)}
           >
             Hide comments...

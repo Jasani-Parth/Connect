@@ -33,20 +33,21 @@ const InputComment = ({ children, post, onReply, setOnReply }) => {
     if (setOnReply) return setOnReply(false);
   };
   return (
-    <form className="card-footer comment_input" onSubmit={handleSubmit}>
-      {children}
-      <input
-        type="text"
-        name=""
-        placeholder="Add your comments"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
+    
+      <form className="comment_input" onSubmit={handleSubmit}>
+        {children}
+        <input
+          type="text"
+          name=""
+          placeholder="Add your comments"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
 
-      <button type="submit" className="postBtn">
-        Post
-      </button>
-    </form>
+        <button type="submit" className="postBtn">
+          Send
+        </button>
+      </form>
   );
 };
 

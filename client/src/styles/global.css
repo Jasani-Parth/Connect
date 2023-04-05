@@ -56,14 +56,25 @@ img {
 /* -----------------PROFILE-------------- */
 @import url("./profile.css");
 
-/* -----------------HOME---------------- */
-@import url("./home.css");
 
-/* ---------------STATUS MODEL----------------- */
-@import url("./status_model.css");
+
+
+
+
+/* -----------------HOME---------------- */
+@import url("./home/home.css");
+@import url("./home/rightPanel.css");
+@import url("./home/centralPanel.css");
+@import url("./home/leftPanel.css");
 
 /* --------------Comments----------------- */
-@import url("./comments.css");
+@import url("./home/comments.css");
+
+/* ---------------STATUS MODEL----------------- */
+@import url("./home/status_model.css");
+
+
+
 
 
 
@@ -80,3 +91,27 @@ img {
   height: 100vh;
   overflow: hidden;
 }
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(238, 238, 238, 0.527);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #adadad;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: RGB(0 150 209);
+}
+

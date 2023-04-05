@@ -1,0 +1,130 @@
+.comment_input{
+    display: flex;
+    flex-direction: row;
+    /* background-color: red; */
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 10px;
+}
+.comment_input input{
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    height: 50px;
+    overflow: hidden;
+    border: none;
+    outline: none;
+    width:85%;
+    padding-left: 30px;
+    
+}
+.comment_input input::placeholder{
+    /* padding-left: 30px; */
+    /* color:red; */
+}
+.comment_input .postBtn{
+    /* flex:30%; */
+    border: none;
+    outline: none;
+    background: #cccccc;
+    height: 50px;
+    width:100px;
+    color: #5a5252;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-right: 15px;
+    transition: all 0.3s;
+}
+.comment_input .postBtn:hover{
+    background: #0096D1;
+    color: white;
+}
+.comment_input .dropdown-menu{
+    transform: translate3d(-120px, -200px, 0px) !important;
+}
+
+/* ---------- Comments ---------- */
+.comments{
+    /* background-color: red; */
+
+}
+.comments .show_prompt{
+    margin: 10px;
+    padding-left: 20px;
+}
+.comment_display{
+    padding: 10px 25px;
+}
+.comment_display i{
+    font-size: 20px;
+    color:#b4b4b4;
+  }
+  .comment_display i:hover{
+    color:#0096D1
+  }
+
+.comment_card a{
+    /* pointer-events: none; */
+    text-decoration: none;
+}
+.comment_card a:hover h6{
+    /* pointer-events: none; */
+    color:#0096D1
+}
+.comment_card .comment_content{
+    background: #DADDE0;
+    padding: 7px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment_card .comment_content .readMore{
+    cursor: pointer;
+    color: #0096D1;
+}
+
+.comment_card .comment_content .nav-item{
+    cursor: pointer;
+    opacity: 0;
+}
+.comment_card .comment_content:hover .nav-item{
+    opacity: 1;
+}
+.comment_card .comment_content .dropdown-item{
+    display: flex;
+    margin: 10px 0;
+}
+.comment_card .comment_content textarea{
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    border-top-left-radius: 0;
+    padding: 20px;
+}
+
+
+
+
+.comment_card .comment_content .dropdown-menu {
+    position: absolute;
+    left: inherit;
+    right: 20px;
+    border-radius: 20px;
+    padding: 20px 10px;
+    width: 200px;
+    background-color: rgba(245, 251, 255, 0.226);
+    backdrop-filter: blur(15px);
+    box-shadow: 1px 1px 20px rgba(33, 80, 110, 0.329);
+  }
+  .comment_card .comment_content .dropdown-menu .dropdown-item{
+    padding: 5px;
+    padding-left: 20px;
+    color: rgba(0, 0, 0, 0.432);
+  }
+  .comment_card .comment_content .dropdown-menu .dropdown-item:hover{
+    background-color:rgba(68, 68, 68, 0.267);
+    border-radius: 20px;
+    color: black;
+  }
