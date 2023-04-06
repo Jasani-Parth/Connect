@@ -1,7 +1,18 @@
 .profile{
-    width: 100%;
+    /* width: 100%;
     min-height: 100vh;
-    margin-top: 100px;
+    margin-top: 100px; */
+
+
+    background-color: rgb(245, 250, 255);
+    width: 100vw;
+    /* height: calc(100vh-100px);
+     */
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: visible;
+    /* z-index: 5; */
+    padding-top: 100px;
 }
 /* ------ Info ---------- */
 .info{

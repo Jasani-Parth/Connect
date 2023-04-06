@@ -25,19 +25,19 @@ const NavigationCard = () => {
     <div className='navigation_card'>
     
     {navLinks.map((link, index) => (
-        <>
-        <Link className="nav-link" to={link.path} style={isActiveBool(link.path)?{pointerEvents:"none"}:{}}>
-            <div className={`navigation_item ${isActive(link.path)}`} key={index} >
+        <div className='navigation_entry' key={index}>
+        <Link className="nav-link" to={link.path} style={isActiveBool(link.path)?{pointerEvents:"none"}:{}} key={index}>
+            <div className={`navigation_item ${isActive(link.path)}`} >
               <div className="material-icons">{link.icon}</div>
               <div id="text">{link.label}</div>
           </div>
-            </Link>
+        </Link>
         
         {navLinks.length === (index+1)? <></>:
         <hr/>}
         
         
-        </>
+        </div>
         ))}
 
 

@@ -47,6 +47,9 @@
     justify-content: flex-start;
     padding-top: 30px;
   }
+  .navigation_entry{
+    width: 100%;
+  }
   
   .navigation_card a {
     /* background-color: red; */
@@ -102,11 +105,12 @@
     color: #0096D1;
   }
   
-  .navigation_card hr {
+  .navigation_card .navigation_entry hr {
     height: 1px;
     border-radius: 1px;
     /* background: #1c2a53; */
     margin: 0;
     padding: 0;
     width: 80%;
+    margin-left: 10%;
   }

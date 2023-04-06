@@ -85,6 +85,9 @@ img {
 
 
 
+/*--------------------PostThumb-------------*/
+@import url("./post_thumb.css");
+
 
 .mode{
   width: 100%;

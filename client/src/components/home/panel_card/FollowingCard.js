@@ -11,7 +11,7 @@ const FollowingCard = () => {
         <div className="text_n_count">
           <div id="text">Following</div>
           <div>
-            <button disabled="true">{auth.user.following.length}</button>
+            <button style={{pointerEvents:"none"}}>{auth.user.following.length}</button>
           </div>
         </div>
         <div className="box">

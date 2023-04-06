@@ -11,7 +11,7 @@ const IntroCard = () => {
   return (
     <div className="intro_card">
         <div id="img">
-            <Link classNama="" to={`/profile/${auth.user._id}`}>
+            <Link className="" to={`/profile/${auth.user._id}`}>
                 <Avatar src={auth.user.avatar} size="large-avatar" />
             </Link>
         </div>
