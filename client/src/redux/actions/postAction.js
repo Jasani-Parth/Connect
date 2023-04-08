@@ -1,6 +1,8 @@
 import { GLOBALTYPES } from "./globalTypes";
 import { imageUpload } from "../../utils/imageUpload";
-import { getDataAPI, postDataAPI, patchDataAPI } from "../../utils/fetchData";
+import { getDataAPI, postDataAPI, patchDataAPI , deleteDataAPI } from "../../utils/fetchData";
+
+
 
 export const POST_TYPES = {
   CREATE_POST: "CREATE_POST",
@@ -53,7 +55,7 @@ export const getPosts = (token) => async (dispatch) => {
     const res = await getDataAPI("posts", token);
     dispatch({
       type: POST_TYPES.GET_POSTS,
-      payload: res.data,
+      payload: {...res.data, page: 2},
     });
     dispatch({ type: POST_TYPES.LOADING_POST, payload: { loading: false } });
   } catch (err) {
@@ -152,3 +154,25 @@ export const getPost =
       }
     }
   };
+
+export const deletePost = ({post, auth}) => async (dispatch) => {
+    dispatch({ type: POST_TYPES.DELETE_POST, payload: post })
+
+    try {
+        const res = await deleteDataAPI(`post/${post._id}`, auth.token)
+
+        // const msg = {
+        //     id: post._id,
+        //     text: 'added a new post.',
+        //     recipients: res.data.newPost.user.followers,
+        //     url: `/post/${post._id}`,
+        // }
+        // dispatch(removeNotify({msg, auth}))
+        
+    } catch (err) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {error: err.response.data.msg}
+        })
+    }
+}

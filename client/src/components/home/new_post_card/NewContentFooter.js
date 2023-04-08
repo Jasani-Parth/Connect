@@ -4,12 +4,17 @@ import Send from "../../../images/send.svg";
 import LikeButton from "../../LikeButton";
 import { useSelector, useDispatch } from "react-redux";
 import { likePost, unLikePost } from "../../../redux/actions/postAction";
+import { BASE_URL } from "../../../utils/config";
+import ShareModal from "../../ShareModal";
 
 const NewContentFooter = ({ post }) => {
   const [isLike, setIsLike] = useState(false);
   const [loadLike, setLoadLike] = useState(false);
 
-  const { auth } = useSelector((state) => state);
+
+  const [isShare, setIsShare] = useState(false);
+
+  const { auth, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,10 +67,15 @@ const NewContentFooter = ({ post }) => {
             </Link>
           </div>
           <div className="send">
-            <i className="fas fa-paper-plane" />
+            <i className="fas fa-paper-plane" onClick={() => setIsShare(!isShare)} />
             {/* <img src={Send} alt="Send" style={{opacity:"30%"}}/> */}
           </div>
         </div>
+
+        {
+          isShare &&
+          <ShareModal url={`${BASE_URL}/post/${post._id}`} theme={theme} />
+        }
       </div>
     </>
   );
