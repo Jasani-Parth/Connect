@@ -11,18 +11,22 @@ import StatusModel from "./components/StatusModel";
 
 import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/authAction";
-import { getPosts } from './redux/actions/postAction'
+import { getPosts } from "./redux/actions/postAction";
+import { getSuggestions } from "./redux/actions/suggestionsAction";
 
 function App() {
   const { auth, status, modal } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(refreshToken())
+    dispatch(refreshToken());
   }, [dispatch]);
 
   useEffect(() => {
-    if(auth.token) dispatch(getPosts(auth.token))
+    if (auth.token) {
+      dispatch(getPosts(auth.token));
+      dispatch(getSuggestions(auth.token));
+    }
   }, [dispatch, auth.token]);
 
   const firstLogin = localStorage.getItem("firstLogin");
@@ -32,7 +36,7 @@ function App() {
     <Router>
       <Alert />
       <input type="checkbox" id="theme"></input>
-      <div className={`App ${(status|| modal) && 'mode'}`}>
+      <div className={`App ${(status || modal) && "mode"}`}>
         <div className="main">
           {auth.token && <Header />}
           {status && <StatusModel />}

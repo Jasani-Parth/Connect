@@ -1,8 +1,11 @@
 import { GLOBALTYPES } from "./globalTypes";
 import { imageUpload } from "../../utils/imageUpload";
-import { getDataAPI, postDataAPI, patchDataAPI , deleteDataAPI } from "../../utils/fetchData";
-
-
+import {
+  getDataAPI,
+  postDataAPI,
+  patchDataAPI,
+  deleteDataAPI,
+} from "../../utils/fetchData";
 
 export const POST_TYPES = {
   CREATE_POST: "CREATE_POST",
@@ -55,7 +58,7 @@ export const getPosts = (token) => async (dispatch) => {
     const res = await getDataAPI("posts", token);
     dispatch({
       type: POST_TYPES.GET_POSTS,
-      payload: {...res.data, page: 2},
+      payload: { ...res.data, page: 2 },
     });
     dispatch({ type: POST_TYPES.LOADING_POST, payload: { loading: false } });
   } catch (err) {
@@ -155,24 +158,67 @@ export const getPost =
     }
   };
 
-export const deletePost = ({post, auth}) => async (dispatch) => {
-    dispatch({ type: POST_TYPES.DELETE_POST, payload: post })
+export const deletePost =
+  ({ post, auth }) =>
+  async (dispatch) => {
+    dispatch({ type: POST_TYPES.DELETE_POST, payload: post });
 
     try {
-        const res = await deleteDataAPI(`post/${post._id}`, auth.token)
-
-        // const msg = {
-        //     id: post._id,
-        //     text: 'added a new post.',
-        //     recipients: res.data.newPost.user.followers,
-        //     url: `/post/${post._id}`,
-        // }
-        // dispatch(removeNotify({msg, auth}))
-        
+      await deleteDataAPI(`post/${post._id}`, auth.token);
     } catch (err) {
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: {error: err.response.data.msg}
-        })
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
+      });
     }
-}
+  };
+
+export const savePost =
+  ({ post, auth }) =>
+  async (dispatch) => {
+    const newUser = {
+      ...auth.user,
+      saved:
+        auth.user.saved !== undefined
+          ? [...auth.user.saved, post._id]
+          : [post._id],
+    };
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: { ...auth, user: newUser },
+    });
+
+    try {
+      await patchDataAPI(`savePost/${post._id}`, null, auth.token);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
+      });
+    }
+  };
+
+export const unSavePost =
+  ({ post, auth }) =>
+  async (dispatch) => {
+    const newUser = {
+      ...auth.user,
+      saved:
+        auth.user.saved !== undefined
+          ? auth.user.saved.filter((id) => id !== post._id)
+          : [],
+    };
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: { ...auth, user: newUser },
+    });
+
+    try {
+      await patchDataAPI(`unSavePost/${post._id}`, null, auth.token);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
+      });
+    }
+  };

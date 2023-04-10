@@ -6,18 +6,13 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 const Menu = () => {
-
-
   const { auth, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
-
 
   return (
     <div className="menu">
       <ul className="navbar-nav flex-row">
-        
-
-        <li className="nav-item dropdown">
+        <li className="nav-item dropdown" style={{ opacity: 1 }}>
           <span
             className="nav-link dropdown-toggle"
             id="navbarDropdown"
@@ -44,8 +39,6 @@ const Menu = () => {
             </label>
 
             <div className="dropdown-divider"></div>
-
-
 
             <Link
               className="dropdown-item"

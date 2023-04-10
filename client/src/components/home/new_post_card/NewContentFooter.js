@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import Send from "../../../images/send.svg";
 import LikeButton from "../../LikeButton";
 import { useSelector, useDispatch } from "react-redux";
-import { likePost, unLikePost } from "../../../redux/actions/postAction";
+import {
+  likePost,
+  unLikePost,
+  savePost,
+  unSavePost,
+} from "../../../redux/actions/postAction";
 import { BASE_URL } from "../../../utils/config";
 import ShareModal from "../../ShareModal";
 
@@ -11,12 +16,15 @@ const NewContentFooter = ({ post }) => {
   const [isLike, setIsLike] = useState(false);
   const [loadLike, setLoadLike] = useState(false);
 
-
   const [isShare, setIsShare] = useState(false);
 
   const { auth, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  const [saved, setSaved] = useState(false);
+  const [saveLoad, setSaveLoad] = useState(false);
+
+  // likes
   useEffect(() => {
     if (post.likes.find((like) => like._id === auth.user._id)) {
       setIsLike(true);
@@ -40,6 +48,30 @@ const NewContentFooter = ({ post }) => {
     setLoadLike(false);
   };
 
+  // saved
+  useEffect(() => {
+    if (auth.user.saved && auth.user.saved.find((id) => id === post._id)) {
+      setSaved(true);
+    } else {
+      setSaved(false);
+    }
+  }, [auth.user.saved, post._id]);
+
+  const handleSavePost = async () => {
+    if (saveLoad) return;
+
+    setSaveLoad(true);
+    await dispatch(savePost({ post, auth }));
+    setSaveLoad(false);
+  };
+  const handleUnSavePost = async () => {
+    if (saveLoad) return;
+
+    setSaveLoad(true);
+    await dispatch(unSavePost({ post, auth }));
+    setSaveLoad(false);
+  };
+
   return (
     <>
       <div className="left">
@@ -58,7 +90,14 @@ const NewContentFooter = ({ post }) => {
       </div>
       <div className="right">
         <div>
-          <i className="fas fa-bookmark" />
+          {saved ? (
+            <i
+              className="fas fa-bookmark text-info"
+              onClick={handleUnSavePost}
+            />
+          ) : (
+            <i className="far fa-bookmark" onClick={handleSavePost} />
+          )}
         </div>
         <div className="roww">
           <div className="chat">
@@ -67,15 +106,17 @@ const NewContentFooter = ({ post }) => {
             </Link>
           </div>
           <div className="send">
-            <i className="fas fa-paper-plane" onClick={() => setIsShare(!isShare)} />
+            <i
+              className="fas fa-paper-plane"
+              onClick={() => setIsShare(!isShare)}
+            />
             {/* <img src={Send} alt="Send" style={{opacity:"30%"}}/> */}
           </div>
         </div>
 
-        {
-          isShare &&
+        {isShare && (
           <ShareModal url={`${BASE_URL}/post/${post._id}`} theme={theme} />
-        }
+        )}
       </div>
     </>
   );
