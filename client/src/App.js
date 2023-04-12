@@ -14,12 +14,19 @@ import { refreshToken } from "./redux/actions/authAction";
 import { getPosts } from "./redux/actions/postAction";
 import { getSuggestions } from "./redux/actions/suggestionsAction";
 
+import io from 'socket.io-client'
+import { GLOBALTYPES } from "./redux/actions/globalTypes";
+import SocketClient from "./SocketClient";
+
 function App() {
   const { auth, status, modal } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(refreshToken());
+    const socket = io()
+    dispatch({type:GLOBALTYPES.SOCKET, payload: socket})
+    return () => socket.close()
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,6 +47,7 @@ function App() {
         <div className="main">
           {auth.token && <Header />}
           {status && <StatusModel />}
+          {auth.token && <SocketClient/>}
 
           <Routes>
             <Route exact path="/" Component={auth.token ? Home : Login} />

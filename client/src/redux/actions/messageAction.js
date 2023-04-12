@@ -20,6 +20,7 @@ export const addMessage =
   ({ msg, auth, socket }) =>
   async (dispatch) => {
     dispatch({ type: MESS_TYPES.ADD_MESSAGE, payload: msg });
+    socket.emit('addMessage',msg)
     try {
       await postDataAPI('message', msg, auth.token)
     } catch (err) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import UserCard from "../UserCard";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import Icons from "../Icons";
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import { imageShow } from "../../utils/mediaShow";
 import { imageUpload } from "../../utils/imageUpload";
-import { addMessage,getMessages } from "../../redux/actions/messageAction";
+import { MESS_TYPES, addMessage,getMessages } from "../../redux/actions/messageAction";
 import LoadIcon from "../../images/loading.gif";
 
 const RightSide = () => {
@@ -19,6 +19,16 @@ const RightSide = () => {
   const [text, setText] = useState("");
   const [media, setMedia] = useState([]);
   const [loadMedia, SetLoadMedia] = useState(false);
+
+  const refDisplay = useRef()
+  const [data, setData] = useState([])
+
+  useEffect(()=>{
+    const newData = message.data.filter(item =>
+        item.sender === auth.user._id || item.sender === id
+    )
+    setData(newData)
+  },[message.data, auth.user._id, id])
 
   useEffect(() => {
     const newUser = message.users.find((user) => user._id === id);
@@ -73,17 +83,25 @@ const RightSide = () => {
     };
 
     SetLoadMedia(false);
-    dispatch(addMessage({ msg, auth, socket }));
+    await dispatch(addMessage({ msg, auth, socket }));
+    if(refDisplay.current){
+      refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+    }
   };
 
   useEffect(()=>{
     if(id){
       const getMessagesData = async () => {
+        dispatch({type: MESS_TYPES.GET_MESSAGES, payload: {messages: []}})
         await dispatch(getMessages({auth, id}))
+        if(refDisplay.current){
+          refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+        }
       }
       getMessagesData()
     }
   },[id,dispatch,auth])
+
 
   return (
     <>
@@ -99,8 +117,8 @@ const RightSide = () => {
         className="chat_container"
         style={{ height: media.length > 0 ? "calc(100%,-180px)" : "" }}
       >
-        <div className="chat_display">
-          {message.data.map((msg, index) => (
+        <div className="chat_display" ref={refDisplay}>
+          {data.map((msg, index) => (
             <div key={index}>
               {msg.sender !== auth.user._id && (
                 <div className="chat_row other_message">
