@@ -7,7 +7,7 @@ import Icons from "../Icons";
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import { imageShow } from "../../utils/mediaShow";
 import { imageUpload } from "../../utils/imageUpload";
-import { MESS_TYPES, addMessage,getMessages } from "../../redux/actions/messageAction";
+import { MESS_TYPES, addMessage, getMessages } from "../../redux/actions/messageAction";
 import LoadIcon from "../../images/loading.gif";
 
 const RightSide = () => {
@@ -23,17 +23,23 @@ const RightSide = () => {
   const refDisplay = useRef()
   const [data, setData] = useState([])
 
-  useEffect(()=>{
-    const newData = message.data.filter(item =>
-        item.sender === auth.user._id || item.sender === id
+  useEffect(() => {
+    const newData = message.data.find(item =>
+      item._id === id
     )
-    setData(newData)
-  },[message.data, auth.user._id, id])
+    if(newData){
+      setData(newData.messages)
+    }
+  }, [message.data, auth.user._id, id])
 
   useEffect(() => {
-    const newUser = message.users.find((user) => user._id === id);
-    if (newUser) {
-      setUser(newUser);
+    setTimeout(() => {
+      refDisplay.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    }, 50)
+
+    if (id && message.users.length > 0) {
+      const newUser = message.users.find((user) => user._id === id);
+      if (newUser) setUser(newUser)
     }
   }, [message.users, id]);
 
@@ -84,23 +90,22 @@ const RightSide = () => {
 
     SetLoadMedia(false);
     await dispatch(addMessage({ msg, auth, socket }));
-    if(refDisplay.current){
-      refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+    if (refDisplay.current) {
+      refDisplay.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   };
 
-  useEffect(()=>{
-    if(id){
-      const getMessagesData = async () => {
-        dispatch({type: MESS_TYPES.GET_MESSAGES, payload: {messages: []}})
-        await dispatch(getMessages({auth, id}))
-        if(refDisplay.current){
-          refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
-        }
-      }
-      getMessagesData()
+  useEffect(() => {
+    const getMessagesData = async () => {
+      if(message.data.every(item => item._id !== id)){
+        await dispatch(getMessages({ auth, id }))
+        setTimeout(() => {
+          refDisplay.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
+        }, 50)  
+      } 
     }
-  },[id,dispatch,auth])
+    getMessagesData()
+  }, [id, dispatch, auth, message.data])
 
 
   return (
@@ -108,7 +113,6 @@ const RightSide = () => {
       <div className="message_header">
         {user.length !== 0 && (
           <UserCard user={user}>
-            <i className="fas fa-trash text-danger" />
           </UserCard>
         )}
       </div>
@@ -127,7 +131,7 @@ const RightSide = () => {
               )}
               {msg.sender === auth.user._id && (
                 <div className="chat_row you_message">
-                  <MsgDisplay user={auth.user} msg={msg} theme={theme} />
+                  <MsgDisplay user={auth.user} msg={msg} theme={theme} data={data}/>
                 </div>
               )}
             </div>
