@@ -11,8 +11,6 @@ import NewPostCardContent from "./home/new_post_card/NewPostCardContent";
 const PostCard = ({ post, theme }) => {
   const [readMore, setReadMore] = useState(false);
 
-  // var str = post.content.replace(/(?:\r\n|\r|\n)/g , ' <br> ');
-  // var str2 = "abc <br/> abc"
   return (
     <div key={post._id} className="card">
       {/* <CardHeader post={post}/>
@@ -22,16 +20,12 @@ const PostCard = ({ post, theme }) => {
             <Comments post={post} />
             <InputComment post={post} /> */}
       <div className={readMore ? "full_caption" : "full_caption_hidden"}>
-        <div className="scroll_text">
-          {/* <textarea 
-          value={post.content} 
-          /> */}
-          {/* <pre style={{ overflowX:"hidden", overflowY:"scroll"}}>
-          { post.content }
-          </pre> */}
+        <textarea readOnly={true} value={post.content} />
+        {/* <div className="scroll_text"> */}
+        {/* {post.content} */}
+        {/* </div> */}
 
-          {post.content}
-        </div>
+        
         <div className="caption_close_btn">
           <button
             onClick={() => {
@@ -42,7 +36,6 @@ const PostCard = ({ post, theme }) => {
           </button>
         </div>
       </div>
-
 
       <div className="content_zone">
         <div className="post_left_zone">
@@ -57,7 +50,6 @@ const PostCard = ({ post, theme }) => {
         </div>
       </div>
 
-      
       <div className="comment_zone_input">
         <InputComment post={post} />
       </div>

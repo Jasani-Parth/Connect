@@ -8,6 +8,7 @@ import LoadIcon from "../images/loading.gif";
 import PostThumb from "../components/PostThumb";
 import LoadMoreBtn from "../components/LoadMoreBtn";
 import { getDataAPI } from "../utils/fetchData";
+import LeftSideBar from "../components/home/LeftSideBar";
 
 const Discover = () => {
   const { auth, discover } = useSelector((state) => state);
@@ -32,23 +33,28 @@ const Discover = () => {
   };
 
   return (
-    <div>
-      {discover.loading ? (
-        <img src={LoadIcon} alt="loading" className="d-block mx-auto my-4" />
-      ) : (
-        <PostThumb posts={discover.posts} result={discover.result} />
-      )}
+    <div className="discover_page">
+      <LeftSideBar />
+      <div className="gallery_panel">
+        {discover.loading ? (
+          <img src={LoadIcon} alt="loading" className="d-block mx-auto my-4" />
+        ) : (
+          <PostThumb posts={discover.posts} result={discover.result} />
+        )}
 
-      {load && <img src={LoadIcon} alt="loading" className="d-block mx-auto" />}
+        {load && (
+          <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
+        )}
 
-      {!discover.loading && (
-        <LoadMoreBtn
-          result={discover.result}
-          page={discover.page}
-          load={load}
-          handleLoadMore={handleLoadMore}
-        />
-      )}
+        {!discover.loading && (
+          <LoadMoreBtn
+            result={discover.result}
+            page={discover.page}
+            load={load}
+            handleLoadMore={handleLoadMore}
+          />
+        )}
+      </div>
     </div>
   );
 };

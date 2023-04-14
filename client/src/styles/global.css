@@ -54,7 +54,10 @@ img {
 @import url("./avatar.css");
 
 /* -----------------PROFILE-------------- */
-@import url("./profile.css");
+@import url("./profile/profile.css");
+@import url("./profile/centralPanel.css");
+@import url("./profile/leftPanel.css");
+@import url("./profile/rightPanel.css");
 
 /* -----------------MESSAGE-------------- */
 @import url("./message.css");
@@ -91,6 +94,13 @@ img {
 /*--------------------PostThumb-------------*/
 @import url("./post_thumb.css");
 
+/*-----postPage-------------------*/
+@import url("./post_page.css");
+
+/*-----DiscoverPage-------------------*/
+@import url("./discover.css");
+
+
 
 .mode{
   width: 100%;
@@ -107,7 +117,7 @@ img {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgba(238, 238, 238, 0.527);
+  background: rgba(238, 238, 238, 0.116);
 }
 
 /* Handle */

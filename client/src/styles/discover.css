@@ -1,0 +1,37 @@
+.discover_page{
+    
+    /* width: 100%;
+      min-height: 100vh;
+      margin-top: 100px; */
+  
+    background-color: rgb(245, 250, 255);
+    width: 100vw;
+    /* height: calc(100vh-100px);
+       */
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: visible;
+    /* z-index: 5; */
+    padding-top: 100px;
+    align-items: center;
+
+  
+  
+}
+
+.discover_page .intro_card{
+    margin-top: 25px;
+} 
+.discover_page .navigation_card{
+    margin-top: 40px;
+} 
+
+
+.discover_page .gallery_panel{
+width: 70%;
+margin-left:25%;
+/* background-color: red; */
+display: flex;
+align-items: center;
+justify-content: center;
+}

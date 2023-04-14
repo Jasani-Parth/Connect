@@ -89,14 +89,15 @@ const NewContentFooter = ({ post }) => {
         </div>
       </div>
       <div className="right">
-        <div>
+        <div className="bookmark">
           {saved ? (
             <i
-              className="fas fa-bookmark text-info"
+              className="fas fa-bookmark"
               onClick={handleUnSavePost}
+              style={{color:"#0096D1"}}
             />
           ) : (
-            <i className="far fa-bookmark" onClick={handleSavePost} />
+            <i className="fas fa-bookmark" onClick={handleSavePost} />
           )}
         </div>
         <div className="roww">
@@ -108,6 +109,7 @@ const NewContentFooter = ({ post }) => {
           <div className="send">
             <i
               className="fas fa-paper-plane"
+              style={isShare ? {color:"#0096D1"}:{}}
               onClick={() => setIsShare(!isShare)}
             />
             {/* <img src={Send} alt="Send" style={{opacity:"30%"}}/> */}

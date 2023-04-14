@@ -8,7 +8,7 @@ const LeftSideBar = () => {
     <div className="home_left_panel">
       <IntroCard />
       <NavigationCard />
-      <SuggestionsUser />
+      {/* <SuggestionsUser /> */}
     </div>
   );
 };

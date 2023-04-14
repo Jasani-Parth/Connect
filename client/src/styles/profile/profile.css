@@ -13,8 +13,60 @@
   /* z-index: 5; */
   padding-top: 100px;
 }
+
+
+
+.profile_left_panel {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  z-index: 0;
+  width: 320px;
+  /* background-color: rgb(255, 255, 255); */
+  height: 85vh;
+  /* border-radius: 30px; */
+  /* box-shadow: -10px 20px 30px rgba(0, 0, 0, 0.2); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* background-color: red; */
+}
+.profile_central_panel {
+  position: relative;
+  top: 0px;
+  left: 17%;
+  z-index: 1;
+  width: 60%;
+  /* background-color: red; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.profile_right_panel {
+  position: absolute;
+  top: 100px;
+  right: 40px;
+  z-index: 0;
+  width: 430px;
+  /* background-color: rgb(255, 255, 255); */
+  height: 85vh;
+  /* border-radius: 30px; */
+  /* box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.2); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+
+
+
 /* ------ Info ---------- */
-.info {
+/* .info {
   width: 100%;
   max-width: 800px;
   margin: auto;
@@ -54,7 +106,7 @@
 }
 .info_container .follow_btn span:hover {
   text-decoration: underline;
-}
+} */
 
 /* -------------- Profile Edit ------------ */
 .edit_profile {
@@ -66,25 +118,28 @@
   background: #0008;
   z-index: 9;
   overflow: auto;
+  padding-top:100px ;
 }
 .edit_profile form {
-  max-width: 450px;
+  max-width: 750px;
   width: 100%;
   background: white;
   padding: 20px;
   border-radius: 5px;
   margin: 20px auto;
+  border-radius: 30px;
+  padding: 20px 20px;
 }
-.edit_profile .btn_close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+.edit_profile .my_button {
+  border-radius: 15px;
+  height: 40px;
+  margin: 10px 0px;
 }
 .edit_profile .info_avatar {
-  width: 150px;
+  width: 300px;
   height: 150px;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 20px;
   position: relative;
   margin: 15px auto;
   border: 1px solid #ddd;
@@ -135,19 +190,52 @@
 }
 
 .follow_box {
-  width: 350px;
-  height: 400px;
+  width: 500px;
+  height: 600px;
   border: 1px solid #222;
-  border-radius: 5px;
-  background: white;
-  padding: 20px 10px;
+  border-radius: 30px;
+  background: rgba(235, 235, 235, 0.575);
+  backdrop-filter: blur(10px);
+  padding: 20px 30px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: auto;
+  border:none;
+}
+.follow_box h5{
+  font-weight: bolder;
+  color:rgb(88, 88, 88);
+  margin-top: 10px;
+  margin-bottom: 30px;
+  /* font-size: 20px; */
 }
 
+.follow_box .scroll_area{
+  /* background-color: red; */
+  /* display: none; */
+  height: 70%;
+  overflow-y: scroll;
+}
+
+.follow_box .scroll_area .my_link_item{
+  /* background-color: red; */
+  margin-top: 10px;
+  text-decoration: none;
+}
+.follow_box .scroll_area .my_link_item span{
+  color:rgb(88, 88, 88);
+  font-weight: bolder;
+  margin-left: 5px;
+}
+.follow_box .scroll_area .my_link_item span:hover{
+  color:rgb(0, 150, 209);
+}
+.follow_box .scroll_area .my_link_item small{
+  color:rgb(66, 66, 66);
+  margin-left: 5px;
+}
 .follow_box .close {
   position: absolute;
   top: 0;
@@ -155,8 +243,29 @@
   font-size: 3rem;
   cursor: pointer;
 }
+.follow_box button{
+  background-color: rgb(202, 202, 202);
+  border: none;
+  width: 150px;
+  height: 40px;
+  border-radius: 15px;
+  color: rgb(65, 65, 65);
+  font-size: 15px;
+  transition: all 0.2s;
+  outline: none;
+}
 
-/* --------- Save Tab ----------- */
+.follow_box #close{
+  color:rgb(83, 83, 83);
+  align-items: center;
+  margin-top: 30px;
+}
+.follow_box #close:hover{
+  background-color: rgb(0, 150, 209);
+  color: white;
+}
+
+/* --------- Save Tab -----------
 .profile_tab {
   width: 100%;
   display: flex;
@@ -179,4 +288,4 @@
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   opacity: 0.8;
-}
+} */

@@ -2,7 +2,7 @@ import React from "react";
 import UserCardVertical from "../../UserCardVertical";
 import { useSelector } from "react-redux";
 
-const FollowingCard = () => {
+const FollowingCard = ({setShowFollowing}) => {
   const { auth } = useSelector((state) => state);
 
   return (
@@ -26,7 +26,7 @@ const FollowingCard = () => {
                 .map((u, index) => <UserCardVertical key={u._id} user={u} />)
             )}
           </div>
-          <button id="load_more" style={auth.user.following.length>3 ?{display:"auto"}:{opacity:"1", filter:"blur(2px)", pointerEvents:"none"}}>Load More</button>
+          <button id="load_more" style={auth.user.following.length>3 ?{display:"auto"}:{opacity:"1", filter:"blur(2px)", pointerEvents:"none"}} onClick={()=>setShowFollowing(true)}>Load More</button>
         </div>
       </div>
     </>

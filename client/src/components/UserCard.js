@@ -23,11 +23,11 @@ const UserCard = ({
     <div
       className={`d-flex p-2 align-items-center justify-content-between w-100 ${border}`}
     >
-      <div>
+      <div className="">
         <Link
           to={`/profile/${user._id}`}
           onClick={handleCloseAll}
-          className="d-flex align-items-center"
+          className="d-flex align-items-center my_link_item"
         >
           <Avatar src={user.avatar} size="big-avatar" />
           <div className="ml-1" style={{ transform: "translateY(-2px)" }}>
@@ -36,7 +36,7 @@ const UserCard = ({
               {msg ? (
                 <>
                   {" "}
-                  <div style={{ filter: theme ? "incer(1)" : "invert(0)" }}>
+                  <div style={{ filter: theme ? "invert(1)" : "invert(0)" }}>
                     {user.text}
                   </div>
                   {user.media.length > 0 && (

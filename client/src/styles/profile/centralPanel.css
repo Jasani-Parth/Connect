@@ -1,0 +1,120 @@
+.profile_content{
+    /* background-color: red; */
+    width: 90%;
+    height: 500px;
+}
+
+.profile_content .profile_box{
+    /* background-color: green; */
+    width: 100%;
+    height: 500px;
+}
+.profile_content .profile_box .top_cover{
+    /* border-radius: 30px; */
+
+}
+.profile_content .profile_box .top_cover img{
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+/* .profile_content .profile_box .top_cover img:after{
+    background: linear-gradient(to bottom, transparent 0%, black 100%);
+} */
+
+.profile_content .profile_box .middle_area img{
+    position: absolute;
+    top:200px;
+    left: 130px;
+    box-shadow: -5px 5px 30px rgba(2, 29, 46, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.63);
+}
+.profile_content .profile_box .middle_area .caption{
+    position: absolute;
+    top:220px;
+    right:120px;
+    height: 130px;
+    width: 530px;
+    border-radius: 20px;
+    border-top-left-radius: 0;
+    /* border-bottom-left-radius: 0; */
+    /* border-bottom-right-radius: 0; */
+    /* border-bottom-right-radius: 0; */
+    background-color: rgba(255, 255, 255, 0.507);
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 20px rgba(33, 80, 110, 0.329);
+    text-align: center;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.596);
+    /* border: 1px solid rgba(255, 255, 255, 0.63); */
+}
+
+
+
+.profile_content .profile_box .bottom_area{
+    position: absolute;
+    top: 390px;
+    right:120px;
+    height: 130px;
+    width: 530px;
+    /* background-color: red; */
+    /* padding: 20px; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+}
+
+
+
+.profile_content .profile_box .bottom_area .text{
+}
+.profile_content .profile_box .bottom_area .text h1{
+  margin: 0;
+  transform: translateY(-5px);
+  color: rgb(0, 150, 209);
+ 
+}.profile_content .profile_box .bottom_area .text small{
+  margin-top: -10px;
+  /* transform: translateY(50px); */
+  color: gray;
+  font-size: 18px;
+
+ 
+}
+.profile_content .profile_box .bottom_area .action button{
+    background-color: rgb(202, 202, 202);
+    border: none;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    color: rgb(110, 110, 110);
+    font-size: 20px;
+    font-weight: bold;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.profile_content .profile_box .bottom_area .action button:hover{
+    background-color: rgb(0, 150, 209);
+    color: white;
+}
+
+
+
+
+
+
+/*----------Gallery area -----------------*/
+
+.profile_gallery{
+    margin-top: 80px;
+    /* background-color: red; */
+    width: 90%;
+}

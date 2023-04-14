@@ -22,15 +22,22 @@ const Post = () => {
   }, [detailPost, dispatch, id, auth]);
 
   return (
-    <div className="posts">
-      {post.length === 0 && (
-        <img src={LoadIcon} alt="loading" className="d-block mx-auto my-4" />
-      )}
+    <div className="post_page">
+      <div className="post_container">
+        <div className="posts">
+          {post.length === 0 && (
+            <img src={LoadIcon} alt="loading" className="d-block mx-auto my-4" />
+          )}
 
-      {post.map((item) => (
-        <PostCard key={item._id} post={item} />
-      ))}
-    </div>
+          {post.map((item) => (
+            <PostCard key={item._id} post={item} />
+          ))}
+        </div>
+      </div>
+
+
+
+      </div>
   );
 };
 
