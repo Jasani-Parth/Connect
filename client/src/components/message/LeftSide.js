@@ -14,6 +14,10 @@ const LeftSide = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const [displaySearchList, setDisplaySearchList] = useState(false);
+  const [hide, setHide] = useState(true);
+  
+
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -34,6 +38,17 @@ const LeftSide = () => {
     return navigate(`/message/${user._id}`);
   };
 
+
+  const handleClose = ()=>{
+    setDisplaySearchList(false);
+    setSearch("");
+    setSearchUsers([]);
+
+  }
+
+
+
+
   const isActive = (user) => {
     if (id === user._id) return "active";
     return "";
@@ -53,9 +68,17 @@ const LeftSide = () => {
           placeholder="Enter to Search..."
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button type="submit" style={{ display: "none" }}>
-          Search
+        {displaySearchList ? (<>
+          <button onClick={handleClose} >
+          Close
         </button>
+        </>) : (<>
+        
+          {search && <button type="submit" onClick={()=>setDisplaySearchList(true)}>
+          Search
+          </button>}
+        </>)}
+       
       </form>
       <div className="message_chat_list">
         {searchUsers.length !== 0 ? (
@@ -78,9 +101,14 @@ const LeftSide = () => {
                 className={`message_user ${isActive(user)}`}
                 onClick={() => handleAddUser(user)}
               >
+                <div>
                 <UserCard user={user} msg={true}>
-                  <i className="fas fa-circle"></i>
                 </UserCard>
+                </div>
+                <div>
+                <i className="fas fa-circle" style={{fontSize:"12px"}}></i>
+
+                </div>
               </div>
             ))}
           </>

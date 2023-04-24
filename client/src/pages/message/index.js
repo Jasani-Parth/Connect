@@ -1,21 +1,17 @@
 import React from "react";
 import LeftSide from "../../components/message/LeftSide";
 
+import companyLogo from "../../images/logo.png";
+
 const Message = () => {
   return (
-    <div className="message d-flex" style={{ marginTop: "100px" }}>
-      <div className="col-md-4 border-right px-0">
+    <div className="message">
+      <div className="left_side">
         <LeftSide />
       </div>
 
-      <div className="col-md-8 px-0">
-        <div className="d-flex justify-content-center align-items-cnter flex-column h-100">
-          <i
-            className="fab fa-facebook-messenger text-primary"
-            style={{ fontSize: "5rem" }}
-          />
-          <h4>Messenger</h4>
-        </div>
+      <div className="right_side1">
+      <img src={companyLogo} alt="Logo" style={{width:"500px"}}></img>
       </div>
     </div>
   );

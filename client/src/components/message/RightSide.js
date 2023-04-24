@@ -7,7 +7,11 @@ import Icons from "../Icons";
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import { imageShow } from "../../utils/mediaShow";
 import { imageUpload } from "../../utils/imageUpload";
-import { MESS_TYPES, addMessage, getMessages } from "../../redux/actions/messageAction";
+import {
+  MESS_TYPES,
+  addMessage,
+  getMessages,
+} from "../../redux/actions/messageAction";
 import LoadIcon from "../../images/loading.gif";
 
 const RightSide = () => {
@@ -20,26 +24,24 @@ const RightSide = () => {
   const [media, setMedia] = useState([]);
   const [loadMedia, SetLoadMedia] = useState(false);
 
-  const refDisplay = useRef()
-  const [data, setData] = useState([])
+  const refDisplay = useRef();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    const newData = message.data.find(item =>
-      item._id === id
-    )
-    if(newData){
-      setData(newData.messages)
+    const newData = message.data.find((item) => item._id === id);
+    if (newData) {
+      setData(newData.messages);
     }
-  }, [message.data, auth.user._id, id])
+  }, [message.data, auth.user._id, id]);
 
   useEffect(() => {
     setTimeout(() => {
-      refDisplay.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
-    }, 50)
+      refDisplay.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, 50);
 
     if (id && message.users.length > 0) {
       const newUser = message.users.find((user) => user._id === id);
-      if (newUser) setUser(newUser)
+      if (newUser) setUser(newUser);
     }
   }, [message.users, id]);
 
@@ -91,29 +93,68 @@ const RightSide = () => {
     SetLoadMedia(false);
     await dispatch(addMessage({ msg, auth, socket }));
     if (refDisplay.current) {
-      refDisplay.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
+      refDisplay.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   };
 
   useEffect(() => {
     const getMessagesData = async () => {
-      if(message.data.every(item => item._id !== id)){
-        await dispatch(getMessages({ auth, id }))
+      if (message.data.every((item) => item._id !== id)) {
+        await dispatch(getMessages({ auth, id }));
         setTimeout(() => {
-          refDisplay.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
-        }, 50)  
-      } 
-    }
-    getMessagesData()
-  }, [id, dispatch, auth, message.data])
-
+          refDisplay.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+          });
+        }, 50);
+      }
+    };
+    getMessagesData();
+  }, [id, dispatch, auth, message.data]);
 
   return (
     <>
-      <div className="message_header">
+      <div className="message_header2">
         {user.length !== 0 && (
-          <UserCard user={user}>
-          </UserCard>
+          <>
+            <UserCard user={user}></UserCard>
+
+            <form className="chat_input" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Enter your message..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                style={{
+                  filter: theme ? "invert(1)" : "invert(0)",
+                  background: theme ? "#040404" : "",
+                  color: theme ? "white" : "",
+                }}
+              />
+
+              <Icons setContent={setText} content={text} theme={theme} />
+              <div className="file_upload"> 
+                <i className="fas fa-image text-danger" style={{cursor:"pointer"}}/>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  multiple
+                  accept="image/*,video/*"
+                  onChange={handleChangeMedia}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="material-icons"
+                disabled={text || media.length > 0 ? false : true}
+                style={text || media.length > 0 ? {}: {filter:"blur(2px)"}}
+              >
+                near_me
+              </button>
+            </form>
+          </>
         )}
       </div>
 
@@ -131,7 +172,12 @@ const RightSide = () => {
               )}
               {msg.sender === auth.user._id && (
                 <div className="chat_row you_message">
-                  <MsgDisplay user={auth.user} msg={msg} theme={theme} data={data}/>
+                  <MsgDisplay
+                    user={auth.user}
+                    msg={msg}
+                    theme={theme}
+                    data={data}
+                  />
                 </div>
               )}
             </div>
@@ -156,41 +202,6 @@ const RightSide = () => {
           </div>
         ))}
       </div>
-
-      <form className="chat_input" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter your message..."
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          style={{
-            filter: theme ? "invert(1)" : "invert(0)",
-            background: theme ? "#040404" : "",
-            color: theme ? "white" : "",
-          }}
-        />
-
-        <Icons setContent={setText} content={text} theme={theme} />
-        <div className="file_upload">
-          <i className="fas fa-image text-danger" />
-          <input
-            type="file"
-            name="file"
-            id="file"
-            multiple
-            accept="image/*,video/*"
-            onChange={handleChangeMedia}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="material-icons"
-          disabled={text || media.length > 0 ? false : true}
-        >
-          near_me
-        </button>
-      </form>
     </>
   );
 };
