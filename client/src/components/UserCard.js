@@ -37,7 +37,8 @@ const UserCard = ({
                 <>
                   {" "}
                   <div style={{ filter: theme ? "invert(1)" : "invert(0)" }}>
-                    {user.text}
+                    {user.text.length > 20 ? user.text.slice(0,20)+"...": user.text}
+                    
                   </div>
                   {user.media.length > 0 && (
                     <div>
